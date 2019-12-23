@@ -12,6 +12,7 @@ export default createStore(
         cityData: null, // 代表城市选择浮层的数据
         isLoadingCityData: false,
         isDateSelectorVisible: false, // 日期选择浮层开关
+        departDate: Date.now(),
         highSpeed: false // 代表是否选择的高铁通车
     },
     applyMiddleware(thunk)
