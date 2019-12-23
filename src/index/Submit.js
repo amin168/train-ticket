@@ -1,8 +1,14 @@
 // 出发日期
 
-import './DepartDate.css'
-import React from 'react'
+import './Submit.css'
+import React, { memo } from 'react'
 
-export default function Submit(props) {
-    return <div></div>
-}
+export default memo(function Submit() {
+    return (
+        <div className="submit">
+            <button type="submit" className="submit-button">
+                搜索
+            </button>
+        </div>
+    )
+})
