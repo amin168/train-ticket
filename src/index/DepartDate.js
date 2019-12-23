@@ -28,7 +28,7 @@ export default function DepartDate(props) {
 
     return (
         <div className="depart-date" onClick={onClick}>
-            <inpu type="hidden" name="date" value={departDateString} />
+            <input type="hidden" name="date" value={departDateString} />
             {departDateString} <span className="depart-week">{weekString}</span>
         </div>
     )

@@ -10,6 +10,9 @@ import Journey from './Journey'
 import Submit from './Submit'
 
 import CitySelector from '../common/CitySelector'
+import DateSelector from '../common/DateSelector'
+
+import { h0 } from '../common/fp'
 
 import {
     exchangeFromTo,
@@ -17,7 +20,9 @@ import {
     hideCitySelector,
     fetchCityData,
     setSelectedCity,
-    showDateSelector
+    showDateSelector,
+    hideDateSelector,
+    setDepartDate
 } from './actions'
 
 function App(props) {
@@ -25,6 +30,7 @@ function App(props) {
         from,
         to,
         isCitySelectorVisible,
+        isDateSelectorVisible,
         cityData,
         isLoadingCityData,
         dispatch,
@@ -79,6 +85,29 @@ function App(props) {
         // eslint-disable-next-line
     }, [])
 
+    const dateSelectorCbs = useMemo(() => {
+        return bindActionCreators(
+            {
+                onBack: hideDateSelector
+            },
+            dispatch
+        )
+        // eslint-disable-next-line
+    }, [])
+
+    const onSelectDate = useCallback(day => {
+        if (!day) return
+
+        if (day < h0())
+            //判断是不是过去日期
+            return
+
+        dispatch(setDepartDate(day))
+        dispatch(hideDateSelector())
+
+        // eslint-disable-next-line
+    }, [])
+
     return (
         <div>
             <div className="header-wrapper">
@@ -95,6 +124,11 @@ function App(props) {
                 show={isCitySelectorVisible}
                 cityData={cityData}
                 isLoading={isLoadingCityData}
+            />
+            <DateSelector
+                show={isDateSelectorVisible}
+                {...dateSelectorCbs}
+                onSelect={onSelectDate}
             />
         </div>
     )
