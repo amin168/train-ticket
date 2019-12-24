@@ -8,6 +8,8 @@ import './App.css'
 
 import Header from '../common/Header'
 import Nav from '../common/Nav'
+import useNav from '../common/useNav'
+
 import List from './List'
 import Bottom from './Bottom'
 
@@ -21,7 +23,9 @@ import {
     setTicketTypes,
     setTrainTypes,
     setDepartStations,
-    setArriveStations
+    setArriveStations,
+    prevDate,
+    nextDate
 } from './actions'
 
 function App(props) {
@@ -117,6 +121,8 @@ function App(props) {
                 dispatch(setDepartStations(depStation))
                 dispatch(setArriveStations(arrStation))
             })
+
+        // eslint-disable-next-line
     }, [
         from,
         to,
@@ -139,6 +145,13 @@ function App(props) {
         window.history.back()
     }, [])
 
+    const { isPrevDisabled, isNextDisabled, prev, next } = useNav(
+        departDate,
+        dispatch,
+        prevDate,
+        nextDate
+    )
+
     if (!searchParsed) {
         return <div>loading...</div>
     }
@@ -148,7 +161,13 @@ function App(props) {
             <div className="header-wrapper">
                 <Header onBack={onBack} title={`${from} ⇀ ${to}`} />
             </div>
-            <Nav />
+            <Nav
+                date={departDate}
+                isNextDisabled={isNextDisabled}
+                isPrevDisabled={isPrevDisabled}
+                next={next}
+                prev={prev}
+            />
             <List />
             <Bottom />
         </div>
