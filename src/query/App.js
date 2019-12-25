@@ -34,6 +34,7 @@ function App(props) {
         to,
         departDate,
         highSpeed,
+        trainList,
         searchParsed,
         orderType,
         onlyTickets,
@@ -168,7 +169,7 @@ function App(props) {
                 next={next}
                 prev={prev}
             />
-            <List />
+            <List list={trainList} />
             <Bottom />
         </div>
     )
