@@ -30,7 +30,15 @@ import {
     toggleOrderType,
     toggleHighSpeed,
     toggleOnlyTickets,
-    toggleIsFiltersVisible
+    toggleIsFiltersVisible,
+    setCheckedTicketTypes,
+    setCheckedTrainTypes,
+    setCheckedDepartStations,
+    setCheckedArriveStations,
+    setDepartTimeStart,
+    setDepartTimeEnd,
+    setArriveTimeStart,
+    setArriveTimeEnd
 } from './actions'
 
 function App(props) {
@@ -44,10 +52,17 @@ function App(props) {
         orderType,
         isFiltersVisible,
         onlyTickets,
+
+        ticketTypes,
+        trainTypes,
+        departStations,
+        arriveStations,
+
         checkedTicketTypes,
         checkedTrainTypes,
         checkedDepartStations,
         checkedArriveStations,
+
         departTimeStart,
         departTimeEnd,
         arriveTimeStart,
@@ -159,16 +174,25 @@ function App(props) {
         nextDate
     )
 
-    const buttomCbs = useMemo(() => {
+    const bottomCbs = useMemo(() => {
         return bindActionCreators(
             {
                 toggleOrderType,
                 toggleHighSpeed,
                 toggleOnlyTickets,
-                toggleIsFiltersVisible
+                toggleIsFiltersVisible,
+                setCheckedTicketTypes,
+                setCheckedTrainTypes,
+                setCheckedDepartStations,
+                setCheckedArriveStations,
+                setDepartTimeStart,
+                setDepartTimeEnd,
+                setArriveTimeStart,
+                setArriveTimeEnd
             },
             dispatch
         )
+        // eslint-disable-next-line
     }, [])
 
     if (!searchParsed) {
@@ -193,7 +217,19 @@ function App(props) {
                 orderType={orderType}
                 isFiltersVisible={isFiltersVisible}
                 onlyTickets={onlyTickets}
-                {...buttomCbs}
+                ticketTypes={ticketTypes}
+                trainTypes={trainTypes}
+                departStations={departStations}
+                arriveStations={arriveStations}
+                checkedTicketTypes={checkedTicketTypes}
+                checkedTrainTypes={checkedTrainTypes}
+                checkedDepartStations={checkedDepartStations}
+                checkedArriveStations={checkedArriveStations}
+                departTimeStart={departTimeStart}
+                departTimeEnd={departTimeEnd}
+                arriveTimeStart={arriveTimeStart}
+                arriveTimeEnd={arriveTimeEnd}
+                {...bottomCbs}
             />
         </div>
     )
