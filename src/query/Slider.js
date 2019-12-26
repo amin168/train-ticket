@@ -25,8 +25,23 @@ const Slider = memo(function Slider(props) {
     const range = useRef()
     const rangWidth = useRef()
 
+    const prevCurrentStartHours = useRef(currentStartHours)
+    const prevCurrentEndHours = useRef(currentEndHours)
+
     const [start, setStart] = useState(() => (currentStartHours / 24) * 100)
     const [end, setEnd] = useState(() => (currentEndHours / 24) * 100)
+
+    // 点了重置currentStartHours不会改变，是因为用了延迟初始化
+    // 所以要用以下方法
+    if (prevCurrentStartHours.current !== currentStartHours) {
+        setStart((currentStartHours / 24) * 100)
+        prevCurrentStartHours.current = currentStartHours
+    }
+
+    if (prevCurrentEndHours.current !== currentEndHours) {
+        setEnd((currentEndHours / 24) * 100)
+        prevCurrentEndHours.current = currentEndHours
+    }
 
     const startPercent = useMemo(() => {
         if (start > 100) return 100
@@ -159,7 +174,6 @@ const Slider = memo(function Slider(props) {
             <h3> {title} </h3>
             <div className="range-slider">
                 <div className="slider" ref={range}>
-
                     <i
                         ref={startHandle}
                         className="slider-handle"
