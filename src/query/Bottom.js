@@ -4,6 +4,7 @@ import classnames from 'classnames'
 
 import './Bottom.css'
 import { ORDER_DEPART } from './constant'
+import Slider from './Slider'
 
 const Filter = memo(function Filter(props) {
     const { name, checked, value, toggle } = props
@@ -79,7 +80,16 @@ const BottomModal = memo(function BottomModal(props) {
         departTimeStart,
         departTimeEnd,
         arriveTimeStart,
-        arriveTimeEnd
+        arriveTimeEnd,
+        setCheckedTicketTypes,
+        setCheckedTrainTypes,
+        setCheckedDepartStations,
+        setCheckedArriveStations,
+        setDepartTimeStart,
+        setDepartTimeEnd,
+        setArriveTimeStart,
+        setArriveTimeEnd,
+        toggleIsFiltersVisible
     } = props
 
     // 由于checkedTicketTypes 计算可能会消耗性能，所以用延迟加载来初始化
@@ -152,18 +162,49 @@ const BottomModal = memo(function BottomModal(props) {
         }
     ]
 
+    function sure() {
+        setCheckedTicketTypes(localCheckedTicketTypes)
+        setCheckedTrainTypes(localCheckedTrainTypes)
+        setCheckedDepartStations(localCheckedDepartStations)
+        setCheckedArriveStations(localCheckedArriveStations)
+
+        setDepartTimeStart(localDepartTimeStart)
+        setDepartTimeEnd(localDepartTimeEnd)
+
+        setArriveTimeStart(localArriveTimeStart)
+        setArriveTimeEnd(localArriveTimeEnd)
+
+        toggleIsFiltersVisible()
+    }
+
     return (
         <div className="bottom-modal">
             <div className="bottom-dialog">
                 <div className="bottom-dialog-content">
                     <div className="title">
                         <span className="reset">重置</span>
-                        <span className="ok">确定</span>
+                        <span className="ok" onClick={sure}>
+                            确定
+                        </span>
                     </div>
                     <div className="options">
                         {optionGroup.map(group => (
                             <Option key={group.title} {...group} />
                         ))}
+                        <Slider
+                            title="出发时间"
+                            currentStartHours={localDepartTimeStart}
+                            currentEndHours={localDepartTimeEnd}
+                            onStartChanged={setLocalDepartTimeStart}
+                            onEndChanged={setLocalDepartTimeEnd}
+                        />
+                        <Slider
+                            title="到达时间"
+                            currentStartHours={localArriveTimeStart}
+                            currentEndHours={localArriveTimeEnd}
+                            onStartChanged={setLocalArriveTimeStart}
+                            onEndChanged={setLocalArriveTimeEnd}
+                        />
                     </div>
                 </div>
             </div>
@@ -183,7 +224,16 @@ BottomModal.propTypes = {
     departTimeStart: PropTypes.number.isRequired,
     departTimeEnd: PropTypes.number.isRequired,
     arriveTimeStart: PropTypes.number.isRequired,
-    arriveTimeEnd: PropTypes.number.isRequired
+    arriveTimeEnd: PropTypes.number.isRequired,
+    setCheckedTicketTypes: PropTypes.func.isRequired,
+    setCheckedTrainTypes: PropTypes.func.isRequired,
+    setCheckedDepartStations: PropTypes.func.isRequired,
+    setCheckedArriveStations: PropTypes.func.isRequired,
+    setDepartTimeStart: PropTypes.func.isRequired,
+    setDepartTimeEnd: PropTypes.func.isRequired,
+    setArriveTimeStart: PropTypes.func.isRequired,
+    setArriveTimeEnd: PropTypes.func.isRequired,
+    toggleIsFiltersVisible: PropTypes.func.isRequired
 }
 
 export default function Bottom(props) {
@@ -207,7 +257,15 @@ export default function Bottom(props) {
         departTimeStart,
         departTimeEnd,
         arriveTimeStart,
-        arriveTimeEnd
+        arriveTimeEnd,
+        setCheckedTicketTypes,
+        setCheckedTrainTypes,
+        setCheckedDepartStations,
+        setCheckedArriveStations,
+        setDepartTimeStart,
+        setDepartTimeEnd,
+        setArriveTimeStart,
+        setArriveTimeEnd
     } = props
 
     return (
@@ -255,6 +313,15 @@ export default function Bottom(props) {
                     departTimeEnd={departTimeEnd}
                     arriveTimeStart={arriveTimeStart}
                     arriveTimeEnd={arriveTimeEnd}
+                    setCheckedTicketTypes={setCheckedTicketTypes}
+                    setCheckedTrainTypes={setCheckedTrainTypes}
+                    setCheckedDepartStations={setCheckedDepartStations}
+                    setCheckedArriveStations={setCheckedArriveStations}
+                    setDepartTimeStart={setDepartTimeStart}
+                    setDepartTimeEnd={setDepartTimeEnd}
+                    setArriveTimeStart={setArriveTimeStart}
+                    setArriveTimeEnd={setArriveTimeEnd}
+                    toggleIsFiltersVisible={toggleIsFiltersVisible}
                 />
             )}
         </div>
