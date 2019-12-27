@@ -1,5 +1,5 @@
 import React from 'react'
-import propTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import './Schedule.css'
 
 export function Schedule(props) {
