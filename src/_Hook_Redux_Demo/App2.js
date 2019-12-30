@@ -139,7 +139,7 @@ function TodoList() {
     useEffect(() => {
         const todos = JSON.parse(localStorage.getItem(LS_KEY)) || '[]'
         dispatch(createSet(todos))
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         localStorage.setItem(LS_KEY, JSON.stringify(todos))

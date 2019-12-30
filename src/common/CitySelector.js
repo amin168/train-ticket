@@ -124,7 +124,6 @@ const Suggest = memo(function Suggest(props) {
     const [result, setResult] = useState([])
 
     useEffect(() => {
-
         // 加这个变量是为了解决以下警告
         // can't perform a react state update on an unmounted component hooks
         // https://stackoverflow.com/questions/56442582/react-hooks-cant-perform-a-react-state-update-on-an-unmounted-component

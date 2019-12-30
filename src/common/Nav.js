@@ -28,7 +28,7 @@ const Nav = memo(function Nav(props) {
             <span
                 onClick={prev}
                 className={classnames('nav-prev', {
-                    'nav-disabled': isPrevDisabled,
+                    'nav-disabled': isPrevDisabled
                 })}
             >
                 前一天
