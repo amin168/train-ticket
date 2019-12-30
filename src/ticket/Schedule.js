@@ -84,7 +84,19 @@ const ScheduleRow = memo(function Schedule(props) {
     )
 })
 
-ScheduleRow.propTypes = {}
+ScheduleRow.propTypes = {
+    index: PropTypes.number.isRequired,
+    station: PropTypes.string.isRequired,
+    arriveTime: PropTypes.string.isRequired,
+    departTime: PropTypes.string.isRequired,
+    stay: PropTypes.string.isRequired,
+    isStartStation: PropTypes.bool.isRequired,
+    isEndStation: PropTypes.bool.isRequired,
+    isDepartStation: PropTypes.bool.isRequired,
+    isArriveStation: PropTypes.bool.isRequired,
+    beforeDepartStation: PropTypes.bool.isRequired,
+    afterArriveStation: PropTypes.bool.isRequired
+}
 
 const Schedule = memo(function Schedule(props) {
     const { date, trainNumber, departStation, arriveStation } = props

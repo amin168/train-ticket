@@ -10,6 +10,8 @@ import useNav from '../common/useNav'
 
 import Detail from '../common/Detail'
 import Candidate from './Candidate'
+import { TrainContext } from './context'
+
 // import Schedule from './Schedule'
 
 import './App.css'
@@ -97,7 +99,8 @@ function App(props) {
                 dispatch(setDurationStr(durationStr))
                 dispatch(setTickets(candidates))
             })
-    }, [searchParsed])
+        // eslint-disable-next-line
+    }, [searchParsed, departDate, trainNumber])
 
     const { prev, next, isPrevDisabled, isNextDisabled } = useNav(
         departDate,
@@ -113,6 +116,7 @@ function App(props) {
             },
             dispatch
         )
+        // eslint-disable-next-line
     }, [])
 
     if (!searchParsed) return null
@@ -144,6 +148,17 @@ function App(props) {
                     {...detailCbs}
                 />
             </div>
+            <TrainContext.Provider
+                value={{
+                    trainNumber,
+                    departStation,
+                    arriveStation,
+                    departDate
+                }}
+            >
+                <Candidate tickets={tickets} />
+            </TrainContext.Provider>
+
             {isScheduleVisible && (
                 <div
                     className="mask"
